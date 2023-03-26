@@ -12,11 +12,14 @@ namespace RandomTextRevel
     {
         static void Main(string[] args)
         {
-            Random rnd = new Random();
-            int speed = 10;
+            Console.Clear();
 
-            IEnumerable<string> words = ReadLogLines(@"data\words.txt");
-            IEnumerable<string> letters = ReadLogLines(@"data\letters.txt");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            Random rnd = new Random();
+            int speed = 20;
+
+            IEnumerable<string> words = ReadLogLines(basePath + @"..\..\..\data\words.txt");
+            IEnumerable<string> letters = ReadLogLines(basePath + @"..\..\..\data\letters.txt");
 
             foreach(string word in words)
             {
@@ -33,18 +36,18 @@ namespace RandomTextRevel
             {
                 string letter;
                 string searchedLetter = word[index].ToString();
-                int snumberOfSearch = 0;
+                int numberOfSearch = 0;
                 Update();
 
-                while(letter != searchedLetter)
+                for(; numberOfSearch <= 5; )
                 {
+                    if(letter == searchedLetter)
+                        return;
                     Update();
-                    if(snumberOfSearch == 5)
-                    {
-                        Console.Write(searchedLetter);
-                        break;
-                    }
                 }
+
+                if(letter != searchedLetter)
+                    Console.Write(searchedLetter);
 
                 void Update()
                 {
@@ -54,7 +57,7 @@ namespace RandomTextRevel
                     if(letter != searchedLetter)
                     {
                         Console.SetCursorPosition(Console.CursorLeft -1, Console.CursorTop);
-                        snumberOfSearch++;
+                        numberOfSearch++;
                     }
                 }
             }
