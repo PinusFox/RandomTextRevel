@@ -22,8 +22,3 @@ strikebreaker
 breed
 #channel-05
 cut
-sanctuary
-generate
-comprehensive
-dirty
-onion
