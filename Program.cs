@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+using System.Reflection;
 
 namespace RandomTextRevel
 {
@@ -14,10 +14,9 @@ namespace RandomTextRevel
         {
             Random rnd = new Random();
             int speed = 10;
-            Console.WriteLine(Directory.GetCurrentDirectory());
 
-            IEnumerable<string> words = ReadLogLines(Path.Combine(Directory.GetCurrentDirectory(), "data\\words.txt"));
-            IEnumerable<string> letters = ReadLogLines(Path.Combine(Directory.GetCurrentDirectory(), "data\\letters.txt"));
+            IEnumerable<string> words = ReadLogLines(@"data\words.txt");
+            IEnumerable<string> letters = ReadLogLines(@"data\letters.txt");
 
             foreach(string word in words)
             {
