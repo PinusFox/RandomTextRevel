@@ -12,9 +12,11 @@ namespace RandomTextRevel
     {
         static void Main(string[] args)
         {
+            Console.Clear();
+            
             Random rnd = new Random();
             int speed = 10;
-            
+
             IEnumerable<string> words = ReadLogLines(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\data\words.txt");
             IEnumerable<string> letters = ReadLogLines(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\data\letters.txt");
 
