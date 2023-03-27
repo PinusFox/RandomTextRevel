@@ -68,7 +68,7 @@ namespace RandomTextRevel
 
                 // Végigmegyünk a szülőkönyvtárakon, amíg megtaláljuk a "RandomTextRevel" mappát
                 DirectoryInfo? parent = Directory.GetParent(currentDirectory);
-                while (parent != null && parent.Name != "RandomTextRevel")
+                while (parent != null && !parent.Name.Contains("RandomTextRevel"))
                 {
                     parent = parent.Parent;
                 }
