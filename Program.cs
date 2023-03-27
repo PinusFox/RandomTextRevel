@@ -12,7 +12,7 @@ namespace RandomTextRevel
     {
         static void Main(string[] args)
         {
-            //Console.Clear();
+            Console.Clear();
 
             Random rnd = new Random();
             int speed = 20;
