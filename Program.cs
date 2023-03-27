@@ -67,7 +67,7 @@ namespace RandomTextRevel
                 string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                 // Végigmegyünk a szülőkönyvtárakon, amíg megtaláljuk a "RandomTextRevel" mappát
-                DirectoryInfo parent = Directory.GetParent(currentDirectory);
+                DirectoryInfo? parent = Directory.GetParent(currentDirectory);
                 while (parent != null && parent.Name != "RandomTextRevel")
                 {
                     parent = parent.Parent;
@@ -81,7 +81,7 @@ namespace RandomTextRevel
 
                 // Megkeressük a "data" mappát a "RandomTextRevel" mappában és visszaadjuk a fájl elérési útját
                 string dataDirectory = Path.Combine(parent.FullName, "data");
-                string filePath = Directory.GetFiles(dataDirectory, fileName, SearchOption.AllDirectories).FirstOrDefault();
+                string? filePath = Directory.GetFiles(dataDirectory, fileName, SearchOption.AllDirectories).FirstOrDefault();
 
                 if (string.IsNullOrEmpty(filePath))
                 {
