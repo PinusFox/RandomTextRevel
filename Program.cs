@@ -12,14 +12,13 @@ namespace RandomTextRevel
     {
         static void Main(string[] args)
         {
-            Console.Clear();
+            //Console.Clear();
 
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Random rnd = new Random();
             int speed = 20;
 
-            IEnumerable<string> words = ReadLogLines(basePath + @"..\..\..\data\words.txt");
-            IEnumerable<string> letters = ReadLogLines(basePath + @"..\..\..\data\letters.txt");
+            IEnumerable<string> words = ReadLogLines(GetDataFilePath("words.txt"));
+            IEnumerable<string> letters = ReadLogLines(GetDataFilePath("letters.txt"));
 
             foreach(string word in words)
             {
@@ -60,6 +59,37 @@ namespace RandomTextRevel
                         numberOfSearch++;
                     }
                 }
+            }
+
+            string GetDataFilePath(string fileName)
+            {
+                // Először megkeressük az aktuális munkakönyvtárat
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                // Végigmegyünk a szülőkönyvtárakon, amíg megtaláljuk a "RandomTextRevel" mappát
+                DirectoryInfo parent = Directory.GetParent(currentDirectory);
+                while (parent != null && parent.Name != "RandomTextRevel")
+                {
+                    parent = parent.Parent;
+                }
+
+                if (parent == null)
+                {
+                    // Nem találtuk meg a "RandomTextRevel" mappát
+                    throw new DirectoryNotFoundException("Cannot find RandomTextRevel project directory.");
+                }
+
+                // Megkeressük a "data" mappát a "RandomTextRevel" mappában és visszaadjuk a fájl elérési útját
+                string dataDirectory = Path.Combine(parent.FullName, "data");
+                string filePath = Directory.GetFiles(dataDirectory, fileName, SearchOption.AllDirectories).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    // Nem találtuk meg a fájlt
+                    throw new FileNotFoundException($"Cannot find {fileName} file.");
+                }
+
+                return filePath;
             }
 
             IEnumerable<string> ReadLogLines(string logPath)
